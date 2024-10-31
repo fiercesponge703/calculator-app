@@ -1,3 +1,10 @@
+import math
+
+def sin(x):
+    return math.sin(x)
+
+def cos(x):
+    return math.cos(x)
 
 # main.py
 def add(a, b):
