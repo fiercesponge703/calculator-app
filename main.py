@@ -21,6 +21,19 @@ def divide(a, b):
 
 def mod(a, b):
     return a % b
+def power(base, exponent):
+    return base ** exponent
+import math
+
+def square_root(x):
+    if x < 0:
+        raise ValueError("Cannot compute square root of a negative number")
+    return math.sqrt(x)
+def floor(x):
+    return math.floor(x)
+def ceil(x):
+    return math.ceil(x)
+
 class Memory:
     def __init__(self):
         self.memory = 0
