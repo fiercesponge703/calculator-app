@@ -1,78 +1,178 @@
 import tkinter as tk
-from main import add, subtract, multiply, divide, mod, power, square_root, sin, cos, floor, ceil, Memory
+from calculator import add, subtract, multiply, divide, mod, power, square_root, sin, cos, floor, ceil, Memory
 
-# Инициализация интерфейса
+def get_number(entry):
+    try:
+        return float(entry.get())
+    except ValueError:
+        raise ValueError("Invalid input. Please enter a numeric value.")
+
+
 root = tk.Tk()
 root.title("Calculator")
 
-# Объект памяти для работы с m+ и mc
-memory = Memory()
 
-# Поля для ввода и вывода
 entry1 = tk.Entry(root)
-entry1.grid(row=0, column=0, columnspan=4)
+entry1.grid(row=0, column=0, columnspan=2)
 
 entry2 = tk.Entry(root)
-entry2.grid(row=1, column=0, columnspan=4)
+entry2.grid(row=1, column=0, columnspan=2)
 
-result_label = tk.Label(root, text="Result: ")
-result_label.grid(row=2, column=0, columnspan=4)
+result_label = tk.Label(root, text="Result:")
+result_label.grid(row=2, column=0, columnspan=2)
 
-# Функции для кнопок
+
+# Функции для каждой операции с обработкой ошибок
 def on_add():
-    result = add(float(entry1.get()), float(entry2.get()))
-    result_label.config(text="Result: " + str(result))
+    try:
+        num1 = get_number(entry1)
+        num2 = get_number(entry2)
+        result = add(num1, num2)
+        result_label.config(text="Result: " + str(result))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
 
 def on_subtract():
-    result = subtract(float(entry1.get()), float(entry2.get()))
-    result_label.config(text="Result: " + str(result))
+    try:
+        num1 = get_number(entry1)
+        num2 = get_number(entry2)
+        result = subtract(num1, num2)
+        result_label.config(text="Result: " + str(result))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
 
 def on_multiply():
-    result = multiply(float(entry1.get()), float(entry2.get()))
-    result_label.config(text="Result: " + str(result))
+    try:
+        num1 = get_number(entry1)
+        num2 = get_number(entry2)
+        result = multiply(num1, num2)
+        result_label.config(text="Result: " + str(result))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
 
 def on_divide():
     try:
-        result = divide(float(entry1.get()), float(entry2.get()))
+        num1 = get_number(entry1)
+        num2 = get_number(entry2)
+        result = divide(num1, num2)
         result_label.config(text="Result: " + str(result))
     except ValueError as e:
         result_label.config(text="Error: " + str(e))
+    except ZeroDivisionError:
+        result_label.config(text="Error: Division by zero is not allowed.")
 
 def on_mod():
-    result = mod(float(entry1.get()), float(entry2.get()))
-    result_label.config(text="Result: " + str(result))
+    try:
+        num1 = get_number(entry1)
+        num2 = get_number(entry2)
+        result = mod(num1, num2)
+        result_label.config(text="Result: " + str(result))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
+    except ZeroDivisionError:
+        result_label.config(text="Error: Modulus by zero is not allowed.")
 
 def on_power():
-    result = power(float(entry1.get()), float(entry2.get()))
-    result_label.config(text="Result: " + str(result))
+    try:
+        num1 = get_number(entry1)
+        num2 = get_number(entry2)
+        result = power(num1, num2)
+        result_label.config(text="Result: " + str(result))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
 
 def on_square_root():
     try:
-        result = square_root(float(entry1.get()))
+        num1 = get_number(entry1)
+        result = square_root(num1)
+        result_label.config(text="Result: " + str(result))
+    except ValueError:
+        result_label.config(text="Error: Cannot compute square root of a negative number.")
+
+def on_sin():
+    try:
+        num1 = get_number(entry1)
+        result = sin(num1)
         result_label.config(text="Result: " + str(result))
     except ValueError as e:
         result_label.config(text="Error: " + str(e))
 
-def on_sin():
-    result = sin(float(entry1.get()))
-    result_label.config(text="Result: " + str(result))
-
 def on_cos():
-    result = cos(float(entry1.get()))
-    result_label.config(text="Result: " + str(result))
+    try:
+        num1 = get_number(entry1)
+        result = cos(num1)
+        result_label.config(text="Result: " + str(result))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
 
 def on_floor():
-    result = floor(float(entry1.get()))
-    result_label.config(text="Result: " + str(result))
+    try:
+        num1 = get_number(entry1)
+        result = floor(num1)
+        result_label.config(text="Result: " + str(result))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
 
 def on_ceil():
-    result = ceil(float(entry1.get()))
-    result_label.config(text="Result: " + str(result))
+    try:
+        num1 = get_number(entry1)
+        result = ceil(num1)
+        result_label.config(text="Result: " + str(result))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
 
-# Функции для работы с памятью
+# Кнопки для операций
+tk.Button(root, text="Add", command=on_add).grid(row=3, column=0)
+tk.Button(root, text="Subtract", command=on_subtract).grid(row=3, column=1)
+tk.Button(root, text="Multiply", command=on_multiply).grid(row=4, column=0)
+tk.Button(root, text="Divide", command=on_divide).grid(row=4, column=1)
+tk.Button(root, text="Modulus", command=on_mod).grid(row=5, column=0)
+tk.Button(root, text="Power", command=on_power).grid(row=5, column=1)
+tk.Button(root, text="Square Root", command=on_square_root).grid(row=6, column=0)
+tk.Button(root, text="Sin", command=on_sin).grid(row=6, column=1)
+tk.Button(root, text="Cos", command=on_cos).grid(row=7, column=0)
+tk.Button(root, text="Floor", command=on_floor).grid(row=7, column=1)
+tk.Button(root, text="Ceil", command=on_ceil).grid(row=8, column=0)
+
+def get_number(entry):
+    try:
+        return float(entry.get())
+    except ValueError:
+        raise ValueError("Invalid input. Please enter a numeric value.")
+
+memory = Memory()
+
 def on_memory_add():
-    memory.m_add(float(entry1.get()))
-    result_label.config(text="Memory: " + str(memory.m_recall()))
+    try:
+        value = get_number(entry1)
+        memory.m_add(value)
+        result_label.config(text="Memory updated: " + str(memory.m_recall()))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
+
+def on_memory_subtract():
+    try:
+        value = get_number(entry1)
+        memory.m_subtract(value)
+        result_label.config(text="Memory updated: " + str(memory.m_recall()))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
+
+def on_memory_multiply():
+    try:
+        value = get_number(entry1)
+        memory.m_multiply(value)
+        result_label.config(text="Memory updated: " + str(memory.m_recall()))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
+
+def on_memory_divide():
+    try:
+        value = get_number(entry1)
+        memory.m_divide(value)
+        result_label.config(text="Memory updated: " + str(memory.m_recall()))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
 
 def on_memory_clear():
     memory.m_clear()
@@ -81,24 +181,26 @@ def on_memory_clear():
 def on_memory_recall():
     result_label.config(text="Memory: " + str(memory.m_recall()))
 
-# Кнопки для каждой функции
-tk.Button(root, text="+", command=on_add).grid(row=3, column=0)
-tk.Button(root, text="-", command=on_subtract).grid(row=3, column=1)
-tk.Button(root, text="*", command=on_multiply).grid(row=3, column=2)
-tk.Button(root, text="/", command=on_divide).grid(row=3, column=3)
-tk.Button(root, text="mod", command=on_mod).grid(row=4, column=0)
-tk.Button(root, text="pow", command=on_power).grid(row=4, column=1)
-tk.Button(root, text="√", command=on_square_root).grid(row=4, column=2)
-tk.Button(root, text="sin", command=on_sin).grid(row=4, column=3)
-tk.Button(root, text="cos", command=on_cos).grid(row=5, column=0)
-tk.Button(root, text="floor", command=on_floor).grid(row=5, column=1)
-tk.Button(root, text="ceil", command=on_ceil).grid(row=5, column=2)
+def on_memory_history():
+    history = memory.get_history()
+    result_label.config(text="Memory History: " + str(history))
 
-# Кнопки для операций с памятью
-tk.Button(root, text="M+", command=on_memory_add).grid(row=6, column=0)
-tk.Button(root, text="MC", command=on_memory_clear).grid(row=6, column=1)
-tk.Button(root, text="MR", command=on_memory_recall).grid(row=6, column=2)
+def on_memory_delete_last():
+    try:
+        memory.delete_last()
+        result_label.config(text="Last item removed. Memory: " + str(memory.m_recall()))
+    except ValueError as e:
+        result_label.config(text="Error: " + str(e))
 
-# Запуск основного цикла интерфейса
+# Кнопки для работы с памятью
+tk.Button(root, text="M+", command=on_memory_add).grid(row=9, column=0)
+tk.Button(root, text="M-", command=on_memory_subtract).grid(row=9, column=1)
+tk.Button(root, text="M*", command=on_memory_multiply).grid(row=10, column=0)
+tk.Button(root, text="M/", command=on_memory_divide).grid(row=10, column=1)
+tk.Button(root, text="MC", command=on_memory_clear).grid(row=11, column=0)
+tk.Button(root, text="MR", command=on_memory_recall).grid(row=11, column=1)
+tk.Button(root, text="History", command=on_memory_history).grid(row=12, column=0)
+tk.Button(root, text="Delete Last", command=on_memory_delete_last).grid(row=12, column=1)
+
 root.mainloop()
 
