@@ -203,4 +203,3 @@ tk.Button(root, text="History", command=on_memory_history).grid(row=12, column=0
 tk.Button(root, text="Delete Last", command=on_memory_delete_last).grid(row=12, column=1)
 
 root.mainloop()
-

@@ -26,14 +26,13 @@ echo "Сборка проекта..."
 echo "Запуск тестов unittest..."
 "C:/Users/Abdujalil/AppData/Local/Programs/Python/Python310/python.exe" -m unittest discover -s "${srcdir}" -p "test_*.py" || { echo "Тесты не пройдены"; exit 1; }
 
-# 4. Создание установщика с использованием PyInstaller
+# 4. Создание установщика с использованием PyInstaller для ui.py
 echo "Создание установщика..."
-"C:/Users/Abdujalil/AppData/Local/Programs/Python/Python310/python.exe" -m PyInstaller --onefile --noconfirm --windowed calculator.py || { echo "Ошибка создания установщика"; exit 1; }
+"C:/Users/Abdujalil/AppData/Local/Programs/Python/Python310/python.exe" -m PyInstaller --onefile --windowed ui.py || { echo "Ошибка создания установщика"; exit 1; }
 
 # 5. Перемещение установщика в папку установки
 echo "Установка приложения..."
-mv dist/calculator.exe "C:/Users/Abdujalil/calculator-app" || { echo "Ошибка установки приложения"; exit 1; }
-
+mv dist/ui.exe "C:/Users/Abdujalil/calculator-app" || { echo "Ошибка установки приложения"; exit 1; }
 
 echo "Скрипт CI завершен успешно"
 
